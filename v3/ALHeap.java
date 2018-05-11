@@ -16,7 +16,8 @@ public class ALHeap
    * default constructor  ---  inits empty heap
    *****************************************************/
   public ALHeap() 
-  { 
+  {
+      _heap = new ArrayList<Integer>();
   }
 
 
