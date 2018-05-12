@@ -1,3 +1,8 @@
+// FreshAvacado ( Fiona Cai, Kendrick Liang, Kayli Matsuyoshi )
+// APCS2 pd1
+// Lab03
+// 2018-05-15t
+
 /*****************************************************
  * class ALHeap
  * SKELETON
@@ -5,6 +10,7 @@
  *****************************************************/
 
 import java.util.ArrayList;
+import java.lang.Integer;
 
 public class ALHeap
 {
@@ -20,8 +26,6 @@ public class ALHeap
       _heap = new ArrayList<Integer>();
   }
 
-
-
   /*****************************************************
    * toString()  ---  overrides inherited method
    * Returns either 
@@ -29,8 +33,13 @@ public class ALHeap
    * b) ASCII representation of the tree (more complicated, more fun)
    *****************************************************/
   public String toString() 
-  { 
-  }//O(?)
+  {
+      String returnString = java.lang.Integer.toBinaryString(_heap.get(0) );
+      for( int i = 1; i < _heap.size(); i++ ) {
+	  returnString += " - " + _heap.get(i);
+      }
+      return returnString;
+  }//O(n)
 
 
   /*****************************************************
@@ -38,8 +47,15 @@ public class ALHeap
    * Returns true if no meaningful elements in heap, false otherwise
    *****************************************************/
   public boolean isEmpty()
-  { 
-  }//O(?)
+  {
+      int i = 0;
+      while ( i < _heap.size() ) {
+	  if ( _heap.get(i) != null ) {
+	      return false;
+	  }
+      }
+      return true;
+  }//O(n)
 
 
   /*****************************************************
@@ -48,8 +64,9 @@ public class ALHeap
    * Postcondition: Heap remains unchanged.
    *****************************************************/
   public Integer peekMin()
-  { 
-  }//O(?)
+  {
+      return _heap.get(0);
+  }//O(1)
 
 
   /*****************************************************
@@ -68,7 +85,8 @@ public class ALHeap
    * Postcondition: Tree maintains heap property.
    *****************************************************/
   public Integer removeMin()
-  { 
+  {
+      return null;
   }//O(?)
 
 
@@ -79,8 +97,17 @@ public class ALHeap
    * Postcondition: Tree unchanged
    *****************************************************/
   private int minChildPos( int pos )
-  { 
-  }//O(?)
+  {
+      if ( ( _heap.get(2*pos+1) == null &&  _heap.get(2*pos+2) == null ) || pos > _heap.size() || pos < 0 ) {
+	  return -1;
+      }
+      else if ( _heap.get(2*pos+1) > _heap.get(2*pos+2) ) {
+	  return 2*pos+2;
+      }
+      else {
+	  return 2*pos+1;
+      }
+  }//O(1)
   
 
   //************ aux helper fxns ***************
