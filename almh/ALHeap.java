@@ -65,7 +65,12 @@ public class ALHeap
    *****************************************************/
   public Integer peekMin()
   {
-      return _heap.get(0);
+      if(_heap.size() <= 0){
+        return null;
+      }
+      else{
+        return _heap.get(0);
+      }
   }//O(1)
 
 
@@ -76,6 +81,16 @@ public class ALHeap
    *****************************************************/
   public void add( Integer addVal )
   {
+    _heap.add(addVal);
+    int i = _heap.size() - 1;
+    int parenti = parent(i);
+
+    while(parenti ! = i && _heap.get(i) < _heap.get(parenti)){
+      swap(i, parenti);
+      i = parenti;
+      parenti = parent(i);
+    }
+
   }//O(?)
 
 
@@ -86,7 +101,7 @@ public class ALHeap
    *****************************************************/
   public Integer removeMin()
   {
-      return null;
+    
   }//O(?)
 
 
@@ -123,6 +138,15 @@ public class ALHeap
   private void swap( int pos1, int pos2 )
   {
     _heap.set( pos1, _heap.set( pos2, _heap.get(pos1) ) );
+  }
+
+  private Integer parent(Integer i){
+    if(i.intValue() % 2 == 1){
+      return new Integer(i.intValue()/2);
+    }
+    else{
+      return new Integer((i.intValue() - 1)/2);
+    }
   }
   //********************************************
 
