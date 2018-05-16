@@ -34,7 +34,9 @@ public class ALHeap
    *****************************************************/
   public String toString()
   {
-      String returnString = java.lang.Integer.toBinaryString(_heap.get(0) );
+      if (isEmpty())
+	  return null;
+      String returnString = "" + _heap.get(0);
       for( int i = 1; i < _heap.size(); i++ ) {
 	  returnString += " - " + _heap.get(i);
       }
