@@ -78,6 +78,7 @@ public class ALHeap
    * add(Integer)
    * Inserts an element in the heap
    * Postcondition: Tree exhibits heap property.
+     First, add new value to ArrayList. Then keep swapping that value with its parent if it is smaller than that parent.
    *****************************************************/
   public void add( Integer addVal )
   {
@@ -98,6 +99,8 @@ public class ALHeap
    * removeMin()  ---  means of removing an element from heap
    * Removes and returns least element in heap.
    * Postcondition: Tree maintains heap property.
+   First, store first element as temp variable. Next, remove last element and set the first element as the last element's value.
+   Keep swapping the newly set element with its smallest child until it has no children left.
    *****************************************************/
   public Integer removeMin()
   {
@@ -121,7 +124,7 @@ public class ALHeap
    *****************************************************/
   private int minChildPos( int pos )
   {
-      if ( ( _heap.get(2*pos+1) == null &&  _heap.get(2*pos+2) == null ) || pos > _heap.size() || pos < 0 ) {
+      if ( ( 2*pos+1 > _heap.size() - 1 ||  (2*pos+2) > _heap.size() - 1 ) || pos > _heap.size() - 1 || pos < 0 ) {
 	  return -1;
       }
       else if ( _heap.get(2*pos+1) > _heap.get(2*pos+2) ) {
