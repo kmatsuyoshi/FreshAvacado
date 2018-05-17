@@ -166,6 +166,10 @@ public class ALHeapMin
       return ((i - 1)/2);
     }
   }
+
+  public int size(){
+    return _heap.size();
+  }
   //********************************************
 
 
@@ -194,7 +198,7 @@ public class ALHeapMin
       System.out.println(pile);
       pile.add(9);
       System.out.println(pile);
-      
+
       System.out.println("removing " + pile.removeMin() + "...");
       System.out.println(pile);
       System.out.println("removing " + pile.removeMin() + "...");
