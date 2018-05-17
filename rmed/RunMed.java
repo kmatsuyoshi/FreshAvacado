@@ -3,6 +3,8 @@
 //HW50 -- Run Run Run
 //2018-05-18f
 
+import java.util.NoSuchElementException;
+
 public class RunMed{
   //instance vars
   private ALHeapMin lilVals;
@@ -27,7 +29,7 @@ public class RunMed{
       return (bigVals.peekMax() + lilVals.peekMin()) / 2.0;
     }
     else{ //median is the max or min of heap that has 1 more element than the other
-      if(bigVals().size > lilVals.size()){
+      if(bigVals.size() > lilVals.size()){
         return bigVals.peekMax();
       }
       else{
@@ -38,15 +40,15 @@ public class RunMed{
 
   public void add(int newVal){
     //add item to correct heap
-    if(newVal < bigVals.peekMax()){ //if item is smaller than maxHeap root, add to maxheap
+    if(newVal < bigVals.peekMax()){ //if item is smaller than bigVals root, add to bigVals
       bigVals.add(new Integer(newVal));
     }
-    else{
+    else{ //else add to lilVals
       lilVals.add(new Integer(newVal));
     }
 
     //balance heaps (size difference > 2)
-    if(bigVals.size() - lilVals.size() >= 2){
+    while(bigVals.size() - lilVals.size() >= 2){
       lilVals.add(bigVals.removeMax());
     }
   }
