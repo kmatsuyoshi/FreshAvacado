@@ -26,14 +26,30 @@ public class RunMed{
     else if(bigVals.size() == lilVals.size()){ //heaps are same size, take avg of max and min
       return (bigVals.peekMax() + lilVals.peekMin()) / 2.0;
     }
-    else{ //bigVals must have one more element than lilVals
-      return bigVals.peekMax();
+    else{ //median is the max or min of heap that has 1 more element than the other
+      if(bigVals().size > lilVals.size()){
+        return bigVals.peekMax();
+      }
+      else{
+        return lilVals.peekMin();
+      }
     }
   }
 
-  public void add(Integer newVal){
-    if(bigVals().isEmpty()){
-      
+  public void add(int newVal){
+    //add item to correct heap
+    if(newVal < bigVals.peekMax()){ //if item is smaller than maxHeap root, add to maxheap
+      bigVals.add(new Integer(newVal));
+    }
+    else{
+      lilVals.add(new Integer(newVal));
+    }
+
+    //balance heaps (size difference > 2)
+    if(Math.abs(bigVals.size() - lilVals.size()) > 1){
+      if(bigVals.size() > lilVals.size()){
+        
+      }
     }
   }
 }
