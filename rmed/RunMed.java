@@ -46,10 +46,8 @@ public class RunMed{
     }
 
     //balance heaps (size difference > 2)
-    if(Math.abs(bigVals.size() - lilVals.size()) > 1){
-      if(bigVals.size() > lilVals.size()){
-        
-      }
+    if(bigVals.size() - lilVals.size() >= 2){
+      lilVals.add(bigVals.removeMax());
     }
   }
 }
