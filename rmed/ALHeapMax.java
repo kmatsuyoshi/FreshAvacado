@@ -4,7 +4,7 @@
 // 2018-05-15t
 
 /*****************************************************
- * class ALHeap
+ * class ALHeapMax
  * Implements a max heap using an ArrayList as underlying container
  *****************************************************/
 
@@ -127,10 +127,10 @@ public class ALHeapMax
    *****************************************************/
   private int maxChildPos( int pos )
   {
-      if ( ( 2*pos+1 < _heap.size() - 1 ||  (2*pos+2) < _heap.size() - 1 ) || pos < _heap.size() - 1 || pos > 0 ) {
+      if ( ( 2*pos+1 > _heap.size() - 1 ||  (2*pos+2) > _heap.size() - 1 ) || pos > _heap.size() - 1 || pos < 0 ) {
 	  return -1;
       }
-      else if ( _heap.get(2*pos+1) > _heap.get(2*pos+2) ) {
+      else if ( _heap.get(2*pos+1) < _heap.get(2*pos+2) ) {
 	  return 2*pos+2;
       }
       else {
