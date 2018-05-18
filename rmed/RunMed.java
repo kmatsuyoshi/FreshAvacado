@@ -7,13 +7,13 @@ import java.util.NoSuchElementException;
 
 public class RunMed{
   //instance vars
-  private ALHeapMin lilVals;
-  private ALHeapMax bigVals;
+  private ALHeapMin bigVals;
+  private ALHeapMax lilVals;
 
   //constructor
   public RunMed(){
-    lilVals = new ALHeapMin();
-    bigVals = new ALHeapMax();
+    bigVals = new ALHeapMin();
+    lilVals = new ALHeapMax();
   }
 
 
@@ -22,34 +22,39 @@ public class RunMed{
    * Returns running median of numbers inputted
    *****************************************************/
   public double getMedian(){
-    if(bigVals.isEmpty()){ //
+    if(lilVals.isEmpty()){ //
       throw new NoSuchElementException();
     }
     else if(bigVals.size() == lilVals.size()){ //heaps are same size, take avg of max and min
-      return (bigVals.peekMax() + lilVals.peekMin()) / 2.0;
+      return (bigVals.peekMin() + lilVals.peekMax()) / 2.0;
     }
     else{ //median is the max or min of heap that has 1 more element than the other
-      if(bigVals.size() > lilVals.size()){
-        return bigVals.peekMax();
+      if(lilVals.size() > bigVals.size()){
+        return lilVals.peekMax();
       }
       else{
-        return lilVals.peekMin();
+        return bigVals.peekMin();
       }
     }
   }
 
   public void add(int newVal){
     //add item to correct heap
-    if(newVal < bigVals.peekMax()){ //if item is smaller than bigVals root, add to bigVals
-      bigVals.add(new Integer(newVal));
-    }
-    else{ //else add to lilVals
+    if(newVal < lilVals.peekMax()){ //if item is smaller than lilVals root, add to lilVals
       lilVals.add(new Integer(newVal));
     }
+    else{ //else add to lilVals
+      bigVals.add(new Integer(newVal));
+    }
 
-    //balance heaps (size difference > 2)
-    while(bigVals.size() - lilVals.size() >= 2){
-      lilVals.add(bigVals.removeMax());
+    //balance heaps (size difference >= 2)
+    while(Math.abs(bigVals.size() - lilVals.size()) >= 2){
+      if(bigVals.size() - lilVals.size() > 0){ //bigVals has extra items
+        lilVals.add(bigVals.removeMin());
+      }
+      else{ //else lilVals has the extra item
+        bigVals.add(lilVals.removeMax());
+      }
     }
   }
 }
