@@ -7,13 +7,13 @@ import java.util.NoSuchElementException;
 
 public class RunMed{
   //instance vars
-  private ALHeapMin bigVals;
-  private ALHeapMax lilVals;
+  private ALHeapMax bigVals;
+  private ALHeapMin lilVals;
 
   //constructor
   public RunMed(){
-    bigVals = new ALHeapMin();
-    lilVals = new ALHeapMax();
+    bigVals = new ALHeapMax();
+    lilVals = new ALHeapMin();
   }
 
 
@@ -22,38 +22,41 @@ public class RunMed{
    * Returns running median of numbers inputted
    *****************************************************/
   public double getMedian(){
-    if(lilVals.isEmpty()){ //
+    if(lilVals.isEmpty() && bigVals.isEmpty()){ //
       throw new NoSuchElementException();
     }
-    else if(bigVals.size() == lilVals.size()){ //heaps are same size, take avg of max and min
-      return (bigVals.peekMin() + lilVals.peekMax()) / 2.0;
+    else if(lilVals.isEmpty()){ //only one item
+      return bigVals.peekMax();
     }
-    else{ //median is the max or min of heap that has 1 more element than the other
-      if(lilVals.size() > bigVals.size()){
-        return lilVals.peekMax();
-      }
-      else{
-        return bigVals.peekMin();
-      }
+
+    if(bigVals.size() == lilVals.size()){ //heaps are same size, take avg of max and min
+      return ((bigVals.peekMax() + lilVals.peekMin()) / 2.0);
     }
+    else if (lilVals.size() > bigVals.size()){ //median is the max or min of heap that has 1 more element than the other
+        return lilVals.peekMin();
+    }
+    else{
+        return bigVals.peekMax();
+      }
+
   }
 
   public void add(int newVal){
-    //add item to correct heap
-    if(newVal < lilVals.peekMax()){ //if item is smaller than lilVals root, add to lilVals
-      lilVals.add(new Integer(newVal));
+    if(bigVals.size() == 0 && lilVals.size() == 0 || newVal< bigVals.peekMax()){
+      bigVals.add(newVal);
     }
-    else{ //else add to lilVals
-      bigVals.add(new Integer(newVal));
+    else{
+      lilVals.add(newVal);
     }
 
     //balance heaps (size difference >= 2)
-    while(Math.abs(bigVals.size() - lilVals.size()) >= 2){
-      if(bigVals.size() - lilVals.size() > 0){ //bigVals has extra items
-        lilVals.add(bigVals.removeMin());
+    while(lilVals.size()-bigVals.size() >= 2){
+
+      if(lilVals.size() - bigVals.size() > 0){
+        bigVals.add(lilVals.removeMin());
       }
-      else{ //else lilVals has the extra item
-        bigVals.add(lilVals.removeMax());
+      else{
+        lilVals.add(bigVals.removeMax());
       }
     }
   }
